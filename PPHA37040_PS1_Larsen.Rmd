@@ -50,7 +50,9 @@ if (!requireNamespace("scales", quietly = TRUE)) {
 }
 
 # Install ggrepel
-install.packages("ggrepel")
+if (!requireNamespace("ggrepel", quietly = TRUE)) {
+  install.packages("ggrepel")
+}
 ```
 
 ```{r setup, include=FALSE}
@@ -72,7 +74,7 @@ library(ggrepel)
 ```{r}
 # Read the .dta file
 # .dta file must be in the same working directory as this .Rmd
-data <- read_dta("glmacro_master_alldata.dta")
+data <- read_dta("/Users/natlarsen/Downloads/Master Data/glmacro_master_alldata.dta")
 ```
 
 ```{r}
@@ -446,6 +448,22 @@ Here I write the interpretation of my results (maximum 200 words).
 # Question 5: Structural transformation comparison with other countries (10 points)
 
 ```{r}
+# Add log of GDP per Capita
+data$log_gdp_pc <- log(data$wdi_ny_gdp_pcap_cd)
+
+# Add dummy column for the chosen country
+data <- data %>%
+  mutate(dummy_chosen_country = ifelse(wb_countryname == country, 1, 0))
+
+# I am using 1960 as it is the first year for Philippines
+data_filtered_1960 <- data %>%
+  filter(year == 1960) %>%
+  filter(!is.na(qog_wdi_popurb) & !is.na(wdi_ny_gdp_pcap_cd))
+
+data_filtered_2021 <- data %>%
+  filter(year == 2021) %>%
+  filter(!is.na(qog_wdi_popurb) & !is.na(wdi_ny_gdp_pcap_cd))
+
 #Plot Log(GDP) and Urban Population
 ggplot(data_filtered_2021, aes(x = log_gdp_pc, y = qog_wdi_popurb)) +
   geom_point(color = "blue", size = 2, alpha = 0.7) +  # Scatter plot points
@@ -480,9 +498,9 @@ Here I write the interpretation of my results (maximum 200 words).
 # Question 6: Comparative Trends in Structural Transformation (10 points)
 ```{r}
 ggplot() +
-  # Highlight chosen country in 1988 (red point)
+  # Highlight chosen country in 1960 (red point)
   geom_point(
-    data = data_filtered_1988[data_filtered_1988$dummy_chosen_country == 1, ],
+    data = data_filtered_1960[data_filtered_1960$dummy_chosen_country == 1, ],
     aes(x = log_gdp_pc, y = qog_wdi_popurb),
     color = "red",
     size = 3
@@ -494,10 +512,10 @@ ggplot() +
     color = "blue",
     size = 3
   ) +
-  # Add arrow connecting 1988 and 2021 points
+  # Add arrow connecting 1960 and 2021 points
   geom_segment(
     data = merge(
-      data_filtered_1988[data_filtered_1988$dummy_chosen_country == 1, ],
+      data_filtered_1960[data_filtered_1960$dummy_chosen_country == 1, ],
       data_filtered_2021[data_filtered_2021$dummy_chosen_country == 1, ],
       by = "dummy_chosen_country"
     ),
@@ -511,7 +529,7 @@ ggplot() +
   ) +
   # Polynomial regression for 1988 (red curve)
   geom_smooth(
-    data = data_filtered_1988,
+    data = data_filtered_1960,
     aes(x = log_gdp_pc, y = qog_wdi_popurb),
     method = "lm",
     formula = y ~ poly(x, 2),
@@ -534,7 +552,7 @@ ggplot() +
   # Axis labels
   labs(
     title = "Relation between Log(GDP pc) and urbanization",
-    subtitle = "Red = 1988, Blue = 2021",
+    subtitle = "Red = 1960, Blue = 2021",
     y = "Urban Population (% of total population)",
     x = "Log(GDP per capita)"
   ) +
