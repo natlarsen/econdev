@@ -1,5 +1,5 @@
 ---
-title: 'PPHA 37040 Problem Set 1: Structural Transformation Training'
+title: 'PPHA 37040 Problem Set 1: Structural Transformation Training; Analysis of the Philippines'
 author: "Nat Larsen, nclarsen"
 date: "`r Sys.Date()`"
 output:
@@ -10,7 +10,6 @@ output:
     toc_float: true
     number_sections: true
 ---
-# Analysis of the Philippines  
 ```{r}
 # Install Necessary Packages
 
@@ -154,8 +153,12 @@ ggplot(data %>% filter(wb_countryname == country & year >= 1990 & year <= 2023),
        x = "Year") +
   theme_minimal()
 ```
-Here I write the interpretation of my results (maximum 200 words).
+Between 1990 and 2023, the Philippines; *Real GDP* increased from 1 to 4 billion USD; *population* consistently increased in population from 6 million to over 100 million; and *GDP per capita* increased, although less dramatically than real GDP, from under 1000 to around 3500 USD. 
 
+*Real GDP Growth* and *Real GDP per capita growth* were volatile, rising and then falling dramatically around 2000, 2010, and 2020, coinciding with the 1990s Asian Financial Crisis, the 2008 Global Financial Crisis, and the 2020 Pandemic. While the population is growing, the rate of population growth is declining—after peaking around 1997, population growth shrunk from nearly 2.5% to current levels under 1.5% annually.
+
+While both real GDP and population are growing, the Philippines experienced more rapid economic growth than population growth. This positive real GDP per capita growth may suggest improvements in living stands; however, its volatility reveals vulnerabilities to external shocks. 
+ 
 # Question 2: Demographic Transition (10 points)
 ```{r}
 # Fertility Rates Time Series
@@ -217,7 +220,9 @@ ggplot(data %>% filter(wb_countryname == country & year >= 2000 & year <= 2023),
   theme_minimal()
 ```
 
-Here I write the interpretation of my results (maximum 200 words).
+In the Philippines, *Total Fertility Rates* and *Mortality Rates* are declining, while *Life Expectancy* is increasing. Following the Malthusian to Modern growth trends, a democratic window opened when the gap between the fertility and mortality rate curves was greatest, likely around the peak of fertility in 1960. The current demographics of declining fertility yet rising life expectancy imply a future high dependency, as an older population’s needs may exceed a working population’s production. 
+
+Since the 1970s, *Education Enrollment* has been increasing, revealing greater investment in this growing population—the lagging tertiary enrollment suggests an opportunity to continue expanding education. I was additionally curious about the trends of *Remittances Paid*, which have increased dramatically since 2000—this rising inflow of funds from overseas boosts household income and national economic growth, also revealing the important role of labor migration for the Filipino economy.  
 
 # Question 3: History of Structural Transformation (20 points)
 ```{r}
@@ -396,8 +401,9 @@ ggplot(data %>% filter(wb_countryname == country & year >= 1990 & year <= 2023),
   theme_minimal()
 ```
 
-Here I write the interpretation of my results (maximum 200 words).
+Between 1990-2020, the *Share of Employment in Agriculture* shrank to 20% while the *Share of Employment in Services* correspondingly grew to 57%. *Employment in Manufacturing* remained more stable, increasing slightly between 2010-2020 from 15% to 19%. Mirroring these employment trends, the *Share of GDP in Agriculture* decreased to under 10% while the *Share of GDP in Services* skyrocketed to over 60%. The *Share of GDP in Industry* stayed relatively the same, shrinking slightly. Meanwhile, *Relative Productivity* grew across *Agriculture*, *Services*, and *Industry*, revealing efficiency and output improvements per worker across sectors. 
 
+Comparing 1990 and 2020, the Philippines underwent a structural economic shift away from agriculture toward services, revealing an acceleration in services’ employment and GDP share and a deceleration in agriculture’s employment and GDP share; while relative productivity consistently improved across sectors. These graphs do not show any significant instances of volatility. 
 
 # Question 4: Structural Breaks (10 points)
 
@@ -443,7 +449,9 @@ plot_breaks <- ggplot(data_filtered, aes(x = year, y = gdp_pc_g)) +
 plot_breaks
 ```
 
-Here I write the interpretation of my results (maximum 200 words).
+The algorithm identified two major structural breaks in *1975* and *1985*, which aligns with the drops in the GDP time series for the Philippines. Building on my observations from the prior questions, the 1975 break might relate to the Philippines’ transition from an agrarian to an industrial economy as well as external economic factors such as the oil price shocks and the global recession of the 1980s. The 1985 break may also relate to internal turmoil from the 1986 People Power Revolution that destabilized the Philippines' political economy. 
+
+Although Questions 1 & 2 revealed overall patterns of quality of life improvements from increasing GDP per capita, life expectancy, and education in the past decades, these structural breaks suggest the role of domestic and external factors in suddenly halting, or advancing, a country’s growth trajectory. 
 
 # Question 5: Structural transformation comparison with other countries (10 points)
 
@@ -493,7 +501,9 @@ ggplot(data_filtered_2021, aes(x = log_gdp_pc, y = qog_wdi_popurb)) +
 
 ```
 
-Here I write the interpretation of my results (maximum 200 words).
+The scatter plot reveals that higher GDP per capita is associated with a higher urban population. However, the Philippines (yellow) falls under the line of best fit, suggesting that it is performing *worse than expected*—its urbanization rate is lower than its GDP per capita predicted. However, the surrounding clusters of dots suggest that the Philippines is not the only country in this position—I added labels to my graph to identify that Bhutan, Belize, and Egypt are also nearby. On either side of the line, Burundi has the greatest extreme of low GDP per capita and urban population while Singapore maintains the highest GDP per capita and urban population. 
+
+Although the previous questions revealed growing income, industry, and productivity levels, the Philippines’ lower urbanization rate may be due to policies or continued importance on agriculture and rural development. As we discussed in the TA session, this relationship between GDP per capita and urban population may conceal an omitted variable—further analysis might investigate what other factors hinder/advance urbanization besides GDP per capita. 
 
 # Question 6: Comparative Trends in Structural Transformation (10 points)
 ```{r}
@@ -567,10 +577,17 @@ ggplot() +
   )
 ```
 
-Here I write the interpretation of my results (maximum 200 words).
+In 1960 (the first year GDP per capita data was available for the Philippines), the Philippines was below the urban population-GDP per capita curve, suggesting its urbanization levels were *lower* than expected. Its position in the middle of the red line further suggests its average performance globally. 
+
+In 2021, the Philippines was similarly *below* the curve, suggesting its urban population levels were still *lower* than expected for its GDP per capita. However, its position relative to other countries also deteriorated, as the Philippines falls on the lower half of the blue line, part of the bottom half of countries for urban population and GDP per capita. 
+
+Compared to the global trends, these curves reveal that the Philippines' urbanization rate lagged behind other countries, its gap between actual and predicted urban population widening between 1960 and 2021. While its GDP per capita did better, the Philippines underperformed in urban population growth. 
+
 
 # Question 7: Conclusion (30 points)
 
-Here I write the conclusion (maximum 300-500 words).
+This first cut of data revealed positive patterns for growth in the Philippines including its (1) transition away from an agrarian and toward a services-dominated economy; (2) growing population with declining mortality rates and longer life expectancy; (3) improvements in relative productivity across sectors and rising GDP per capita. However, its structural breaks reveal certain susceptibility to internal and external turmoil, such as domestic rebellion and global financial crisis. Additionally, the Philippines’ urban population is lower than predicted. 
+
+Compared to other countries, the Philippines may have unique growth opportunities given its expanding industry, population, and productivity, prompting the central growth question: *How can the Philippines leverage its industry, population, and productivity growth; expand its urban population; and increase resilience to internal and external shocks?*
 
 ---
