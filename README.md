@@ -4,4 +4,4 @@ This repository contains the problem sets and projects I completed as part of th
 
 ## Contents
 
-- `PPHA37040_PS1_Larsen.Rmd`: An R Markdown report documenting my analysis process and findings
+- `nclarsen_PPHA37040_2025_PS1_.Rmd`: An R Markdown report documenting my analysis process and findings
